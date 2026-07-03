@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaaS Employee Management Dashboard</title>
+    <title>CoreHR - ระบบบริหารจัดการพนักงาน</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,18 +19,14 @@
             --danger: #ef4444;
             --danger-bg: #fee2e2;
             --danger-text: #991b1b;
-            --bg-body: #f1f5f9;
+            --bg-body: #f8fafc;
             --sidebar-bg: #0f172a;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border-color: #e2e8f0;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', 'Noto Sans Thai', sans-serif;
@@ -53,256 +49,125 @@
         }
 
         .sidebar-brand {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             color: #fff;
             margin-bottom: 40px;
-        }
-
-        .sidebar-brand span { color: #818cf8; }
-
-        .sidebar-menu {
-            list-style: none;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 8px;
         }
+        .sidebar-brand span { color: #818cf8; }
+
+        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
 
         .menu-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             color: #94a3b8;
             text-decoration: none;
             font-weight: 500;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: all 0.2s;
             font-size: 15px;
+            cursor: pointer;
         }
+        .menu-item:hover { background-color: rgba(255, 255, 255, 0.05); color: #ffffff; }
+        .menu-item.active { background-color: var(--primary); color: #ffffff; }
 
-        .menu-item:hover, .menu-item.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-        }
+        /* MAIN CONTENT RIGHT */
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; overflow-x: hidden; }
 
-        .menu-item.active { background-color: var(--primary); }
-
-        /* MAIN CONTENT AREA */
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        /* TOP NAVBAR */
+        /* NAVBAR TOP */
         .navbar {
             background-color: #ffffff;
-            height: 70px;
+            height: 75px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 40px;
             border-bottom: 1px solid var(--border-color);
         }
+        .nav-title h1 { font-size: 20px; font-weight: 700; color: #0f172a; }
+        .nav-user { display: flex; align-items: center; gap: 12px; }
+        .nav-user img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); }
+        .user-info { text-align: right; }
+        .user-name { font-size: 14px; font-weight: 600; display: block; }
+        .user-role { font-size: 12px; color: var(--text-muted); }
 
-        .nav-title h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0f172a;
+        /* CONTENT CONTAINER */
+        .content-body { padding: 40px; max-width: 1200px; width: 100%; margin: 0 auto; flex-grow: 1; }
+
+        /* PAGE CONTROL */
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.25s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .nav-user {
+        .section-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            margin-bottom: 24px;
         }
-
-        .nav-user img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-info .user-name {
-            font-size: 14px;
-            font-weight: 600;
-            display: block;
-        }
-
-        .user-info .user-role {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* BODY CONTENT */
-        .content-body {
-            padding: 40px;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-        }
+        .section-header h2 { font-size: 22px; font-weight: 700; color: #0f172a; }
 
         /* STAT CARDS */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .stat-card {
-            background: #ffffff;
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-
-        .stat-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0f172a;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px; }
+        .stat-card { background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid var(--border-color); }
+        .stat-label { font-size: 14px; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 8px; }
+        .stat-value { font-size: 30px; font-weight: 700; color: #0f172a; }
 
         /* TABLE */
-        .table-card {
-            background: #ffffff;
-            border-radius: 20px;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.02);
-        }
+        .table-card { background: #ffffff; border-radius: 20px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.02); }
+        table { width: 100%; border-collapse: collapse; }
+        th { color: var(--text-muted); padding: 16px 20px; font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--border-color); background-color: #f8fafc; text-align: left; }
+        td { padding: 16px 20px; border-bottom: 1px solid #f1f5f9; font-size: 15px; color: #334155; vertical-align: middle; }
+        tr:hover td { background-color: #fafafa; }
 
-        .card-header { margin-bottom: 20px; }
-        .card-header h3 { font-size: 18px; font-weight: 700; }
+        .profile-cell { display: flex; align-items: center; gap: 14px; }
+        .avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            color: var(--text-muted);
-            padding: 16px 20px;
-            font-size: 13px;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-            background-color: #f8fafc;
-            text-align: left;
-        }
-
-        td {
-            padding: 16px 20px;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 15px;
-            color: #334155;
-            vertical-align: middle;
-        }
-
-        .profile-cell {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 14px;
-            border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 600;
-        }
+        /* BADGES */
+        .badge { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 9999px; font-size: 13px; font-weight: 600; }
         .badge-active { background-color: var(--success-bg); color: var(--success-text); }
         .badge-inactive { background-color: var(--danger-bg); color: var(--danger-text); }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 18px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; font-family: inherit; gap: 8px; }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        .btn-edit { background-color: #ffffff; color: #475569; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 10px; }
+        .btn-edit:hover { background-color: #f8fafc; border-color: #cbd5e1; }
+        .btn-cancel { background-color: #f1f5f9; color: #475569; }
+        .btn-cancel:hover { background-color: #e2e8f0; }
 
-        .btn-edit { background-color: #ffffff; color: #475569; border: 1px solid #e2e8f0; }
-        .btn-edit:hover { background-color: #f8fafc; border-color: #cbd5e1; transform: translateY(-1px); }
+        /* CONFIG PAGE */
+        .config-card { background: #ffffff; border-radius: 20px; border: 1px solid var(--border-color); padding: 32px; max-width: 600px; }
+        .admin-profile-section { text-align: center; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f1f5f9; }
+        .admin-large-avatar { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 12px; }
 
         /* MODAL POP-UP */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex; justify-content: center; align-items: flex-start;
-            padding-top: 60px; z-index: 1000;
-            opacity: 0; pointer-events: none;
-            transition: all 0.3s ease;
-        }
-
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: flex-start; padding-top: 60px; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .modal-box {
-            background: #ffffff; border-radius: 24px; width: 100%; max-width: 480px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            transform: translateY(-40px); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            overflow: hidden;
-        }
-
+        .modal-box { background: #ffffff; border-radius: 24px; width: 100%; max-width: 480px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); transform: translateY(-40px); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); overflow: hidden; }
         .modal-overlay.active .modal-box { transform: translateY(0); }
-
-        .modal-header-profile {
-            background: linear-gradient(135deg, #f5f3ff 0%, #e0e7ff 100%);
-            padding: 32px 24px; text-align: center; position: relative;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
+        .modal-header-profile { background: linear-gradient(135deg, #f5f3ff 0%, #e0e7ff 100%); padding: 32px 24px; text-align: center; position: relative; border-bottom: 1px solid #e2e8f0; }
         .modal-avatar-wrapper { position: relative; width: 100px; height: 100px; margin: 0 auto 12px auto; }
         .modal-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #ffffff; }
-
-        .file-input-label {
-            position: absolute; bottom: 0; right: 0; background-color: var(--primary);
-            color: white; width: 32px; height: 32px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer;
-        }
-
+        .file-input-label { position: absolute; bottom: 0; right: 0; background-color: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
         .modal-body { padding: 24px; }
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
-
-        .modal-body input[type="text"], .modal-body select {
-            width: 100%; padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 15px; font-family: inherit;
-        }
+        .modal-body input[type="text"], .modal-body select { width: 100%; padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 15px; font-family: inherit; }
         .modal-body input[type="text"]:focus, .modal-body select:focus { border-color: var(--primary); outline: none; }
-
         .modal-footer { padding: 0 24px 24px 24px; display: flex; gap: 12px; }
         .modal-footer .btn { flex: 1; padding: 12px; border-radius: 12px; }
-        .btn-cancel { background-color: #f1f5f9; color: #475569; }
-        .btn-save-modal { background-color: var(--primary); color: white; }
     </style>
 </head>
 <body>
@@ -310,49 +175,79 @@
     <div class="sidebar">
         <div class="sidebar-brand">⚡ Core<span>HR</span></div>
         <ul class="sidebar-menu">
-            <li><a href="#" class="menu-item"><span>📊</span> หน้าแรก</a></li>
-            <li><a href="#" class="menu-item active"><span>👥</span> รายชื่อพนักงาน</a></li>
-            <li><a href="#" class="menu-item"><span>⚙️</span> ตั้งค่าระบบ</a></li>
+            <li><div class="menu-item active" onclick="switchPage('dashboard-page', this)"><span>📊</span> หน้าแรก</div></li>
+            <li><div class="menu-item" onclick="switchPage('employee-page', this)"><span>👥</span> รายชื่อพนักงาน</div></li>
+            <li><div class="menu-item" onclick="switchPage('config-page', this)"><span>⚙️</span> ตั้งค่าระบบ</div></li>
         </ul>
     </div>
 
     <div class="main-content">
         <div class="navbar">
-            <div class="nav-title"><h1>ระบบจัดการข้อมูลพนักงาน</h1></div>
+            <div class="nav-title"><h1 id="navbar-display-title">หน้าแรก - สรุปข้อมูล</h1></div>
             <div class="nav-user">
-                <div class="user-info" style="text-align: right;">
-                    <span class="user-name">คุณแอดมิน</span>
+                <div class="user-info">
+                    <span class="user-name" id="admin-display-name">คุณแอดมิน</span>
                     <span class="user-role">Super Admin</span>
                 </div>
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Admin">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" id="admin-top-avatar" alt="Admin">
             </div>
         </div>
 
         <div class="content-body">
-            <div class="stats-grid">
-                <div class="stat-card"><span class="stat-label">พนักงานทั้งหมด</span><div class="stat-value" id="stat-total">0 คน</div></div>
-                <div class="stat-card" style="border-left: 4px solid var(--success);"><span class="stat-label">กำลังใช้งาน</span><div class="stat-value" id="stat-active" style="color: var(--success);">0 คน</div></div>
-                <div class="stat-card" style="border-left: 4px solid var(--danger);"><span class="stat-label">ระงับใช้งาน</span><div class="stat-value" id="stat-inactive" style="color: var(--danger);">0 คน</div></div>
+            
+            <div id="dashboard-page" class="page active">
+                <div class="stats-grid">
+                    <div class="stat-card"><span class="stat-label">พนักงานทั้งหมด</span><div class="stat-value" id="stat-total">0 คน</div></div>
+                    <div class="stat-card" style="border-left: 4px solid var(--success);"><span class="stat-label">กำลังใช้งาน</span><div class="stat-value" id="stat-active" style="color: var(--success);">0 คน</div></div>
+                    <div class="stat-card" style="border-left: 4px solid var(--danger);"><span class="stat-label">ระงับใช้งาน</span><div class="stat-value" id="stat-inactive" style="color: var(--danger);">0 คน</div></div>
+                </div>
+                <div style="background: white; padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); text-align: center; color: var(--text-muted); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.02);">
+                    <h3 style="color:#0f172a; margin-bottom:10px; font-size:18px;">ยินดีต้อนรับเข้าสู่ระบบจัดการพนักงาน CoreHR</h3>
+                    <p style="font-size: 15px;">คุณสามารถเพิ่มพนักงาน สลับหน้า หรือตั้งค่าระบบได้จากแถบเมนูด้านซ้ายมือครับ</p>
+                </div>
             </div>
 
-            <div class="table-card">
-                <div class="card-header"><h3>ตารางข้อมูลพนักงานล่าสุด</h3></div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ชื่อ - นามสกุล</th>
-                            <th>ตำแหน่ง</th>
-                            <th>สถานะ</th>
-                            <th style="width: 100px; text-align: center;">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body"></tbody>
-                </table>
+            <div id="employee-page" class="page">
+                <div class="section-header">
+                    <h2>รายชื่อพนักงานทั้งหมด</h2>
+                    <button class="btn btn-primary" onclick="openAddModal()">➕ เพิ่มพนักงานใหม่</button>
+                </div>
+                <div class="table-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ชื่อ - นามสกุล</th>
+                                <th>ตำแหน่ง</th>
+                                <th>สถานะ</th>
+                                <th style="width: 100px; text-align: center;">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
             </div>
+
+            <div id="config-page" class="page">
+                <div class="section-header"><h2>ตั้งค่าระบบโปรไฟล์ของคุณ</h2></div>
+                <div class="config-card">
+                    <div class="admin-profile-section">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" class="admin-large-avatar" id="admin-config-avatar" alt="Admin">
+                        <div>
+                            <label class="btn btn-edit" for="admin-image-uploader">📷 เปลี่ยนรูปโปรไฟล์ของคุณ</label>
+                            <input type="file" id="admin-image-uploader" accept="image/*" style="display: none;" onchange="changeAdminImage(event)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>ชื่อแอดมินผู้ใช้งาน</label>
+                        <input type="text" id="config-admin-name" value="คุณแอดมิน" oninput="updateAdminName(this.value)" style="width:100%; padding:12px; border:1px solid #cbd5e1; border-radius:12px; font-family:inherit;">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div class="modal-overlay" id="editModal">
+    <div class="modal-overlay" id="employeeModal">
         <div class="modal-box">
             <div class="modal-header-profile">
                 <div class="modal-avatar-wrapper">
@@ -360,7 +255,7 @@
                     <label class="file-input-label" for="image-uploader">📷</label>
                     <input type="file" id="image-uploader" accept="image/*" style="display: none;" onchange="previewImage(event)">
                 </div>
-                <h3>แก้ไขข้อมูลโปรไฟล์</h3>
+                <h3 id="modal-title">แก้ไขข้อมูลโปรไฟล์</h3>
             </div>
             <div class="modal-body">
                 <div class="form-group"><label>ชื่อ - นามสกุล</label><input type="text" id="modal-input-name"></div>
@@ -369,20 +264,35 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-cancel" onclick="closeModal()">ยกเลิก</button>
-                <button class="btn btn-save-modal" onclick="saveModalData()">บันทึกข้อมูล</button>
+                <button class="btn btn-primary" onclick="submitModalData()">บันทึกข้อมูล</button>
             </div>
         </div>
     </div>
 
     <script>
+        // ข้อมูลหลักในระบบ
         let employees = [
             { id: 1, name: 'สมชาย ใจดี', role: 'Web Developer', status: 'ใช้งานอยู่', img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80' },
             { id: 2, name: 'สมศรี มีสุข', role: 'UX/UI Designer', status: 'ใช้งานอยู่', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80' },
             { id: 3, name: 'สมศักดิ์ รักเรียน', role: 'Data Analyst', status: 'ระงับใช้งาน', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80' }
         ];
 
-        let currentEditingId = null;
+        let currentEditingId = null; 
+        let modalMode = 'edit'; 
 
+        // 1. ฟังก์ชันสลับหน้าเพจ (Tab Navigation)
+        function switchPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            element.classList.add('active');
+
+            const titles = { 'dashboard-page': 'หน้าแรก - สรุปข้อมูล', 'employee-page': 'จัดการรายชื่อพนักงาน', 'config-page': 'ตั้งค่าข้อมูลผู้ใช้งาน' };
+            document.getElementById('navbar-display-title').textContent = titles[pageId];
+        }
+
+        // 2. เรนเดอร์ตารางและคำนวณตัวเลขสถิติแบบ Dynamic
         function renderTable() {
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
@@ -406,20 +316,35 @@
             document.getElementById('stat-inactive').textContent = `${inactiveCount} คน`;
         }
 
+        // 3. ฟังก์ชันเปิดหน้าต่างเพิ่มคนใหม่
+        function openAddModal() {
+            modalMode = 'add';
+            document.getElementById('modal-title').textContent = 'เพิ่มพนักงานใหม่';
+            document.getElementById('modal-input-name').value = '';
+            document.getElementById('modal-input-role').value = '';
+            document.getElementById('modal-input-status').value = 'ใช้งานอยู่';
+            document.getElementById('modal-img-preview').src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80';
+            document.getElementById('employeeModal').classList.add('active');
+        }
+
+        // 4. ฟังก์ชันเปิดหน้าต่างแก้ไขข้อมูลคนเดิม
         function openEditModal(id) {
+            modalMode = 'edit';
             currentEditingId = id;
             const emp = employees.find(e => e.id === id);
             if (emp) {
+                document.getElementById('modal-title').textContent = 'แก้ไขข้อมูลโปรไฟล์';
                 document.getElementById('modal-input-name').value = emp.name;
                 document.getElementById('modal-input-role').value = emp.role;
                 document.getElementById('modal-input-status').value = emp.status;
                 document.getElementById('modal-img-preview').src = emp.img;
-                document.getElementById('editModal').classList.add('active');
+                document.getElementById('employeeModal').classList.add('active');
             }
         }
 
-        function closeModal() { document.getElementById('editModal').classList.remove('active'); currentEditingId = null; }
+        function closeModal() { document.getElementById('employeeModal').classList.remove('active'); }
 
+        // 5. พรีวิวรูปภาพเมื่ออัปโหลดไฟล์พนักงาน
         function previewImage(event) {
             const file = event.target.files[0];
             if (file) {
@@ -429,22 +354,42 @@
             }
         }
 
-        function saveModalData() {
-            const newName = document.getElementById('modal-input-name').value.trim();
-            const newRole = document.getElementById('modal-input-role').value.trim();
-            const newStatus = document.getElementById('modal-input-status').value;
-            const newImg = document.getElementById('modal-img-preview').src;
+        // 6. ประมวลผลเมื่อกดยืนยันในหน้าต่าง Pop-up
+        function submitModalData() {
+            const name = document.getElementById('modal-input-name').value.trim();
+            const role = document.getElementById('modal-input-role').value.trim();
+            const status = document.getElementById('modal-input-status').value;
+            const img = document.getElementById('modal-img-preview').src;
 
-            if (!newName || !newRole) { alert('กรุณากรอกข้อมูลให้ครบถ้วน'); return; }
+            if (!name || !role) { alert('กรุณากรอกชื่อและตำแหน่งงานให้ครบถ้วนด้วยครับ'); return; }
 
-            const index = employees.findIndex(e => e.id === currentEditingId);
-            if (index !== -1) {
-                employees[index] = { ...employees[index], name: newName, role: newRole, status: newStatus, img: newImg };
+            if (modalMode === 'add') {
+                const newId = employees.length > 0 ? Math.max(...employees.map(e => e.id)) + 1 : 1;
+                employees.push({ id: newId, name, role, status, img });
+            } else if (modalMode === 'edit') {
+                const index = employees.findIndex(e => e.id === currentEditingId);
+                if (index !== -1) employees[index] = { id: currentEditingId, name, role, status, img };
             }
+
             closeModal();
             renderTable();
         }
 
+        // 7. ตั้งค่าโปรไฟล์ของผู้ใช้งาน (Admin Account)
+        function updateAdminName(val) { document.getElementById('admin-display-name').textContent = val || 'คุณแอดมิน'; }
+        function changeAdminImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('admin-top-avatar').src = e.target.result;
+                    document.getElementById('admin-config-avatar').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // รันครั้งแรกเมื่อเปิดหน้าเว็บ
         renderTable();
     </script>
 </body>
